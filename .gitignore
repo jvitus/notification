@@ -1,1 +1,2 @@
-./node_modules
+#on ignore les dossiers suivant
+node_modules/
