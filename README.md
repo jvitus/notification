@@ -18,4 +18,4 @@ https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopl
 
 # Situations:
 
-Strict minimum pour une application react
+Strict minimum pour une application react + test tuto redux
