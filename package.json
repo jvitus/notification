@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack -d --watch",
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,9 @@
     "babel-preset-react": "^6.5.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-redux": "^4.4.2",
+    "redux": "^3.4.0",
+    "redux-devtools": "^3.2.0",
     "webpack": "^1.12.15"
-  },
-  "scripts": {
-    "dev": "webpack -d --watch",
-    "build" : "webpack -p"
   }
 }
