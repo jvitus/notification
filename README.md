@@ -3,8 +3,12 @@
 Commandes:
 
 git clone https://github.com/NaturalSolutions/notification.git
+
+
 cd notification
+
 npm install
+
 npm run dev
 
 ouvrir index.html dans notification/src/client/app/
