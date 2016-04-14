@@ -10,6 +10,7 @@ var path = require('path');
 var BUILD_DIR = path.resolve(__dirname, 'src/client/public'); // dossier source assemble
 var APP_DIR = path.resolve(__dirname, 'src/client/app');      // dossier source du projet react
 
+
 var config = {
   entry: APP_DIR + '/index.jsx', //fichier de départ application
   output: {
