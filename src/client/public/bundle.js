@@ -69,6 +69,14 @@
 	
 	var _VueList2 = _interopRequireDefault(_VueList);
 	
+	var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ 170);
+	
+	var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+	
+	var _Formadd = __webpack_require__(/*! ./Formadd.jsx */ 172);
+	
+	var _Formadd2 = _interopRequireDefault(_Formadd);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78,24 +86,46 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //importe un seul membre ici render du modul react-dom
 	
 	
-	var ListeExemple = [{ name: 'test', categorie: 'a refaire ', priorite: 'haute', valide: false }, { name: 'test1', categorie: 'en cours ', priorite: 'haute', valide: false }, { name: 'test2', categorie: 'a effacer ', priorite: 'haute', valide: true }, { name: 'test3', categorie: 'a ameliorer ', priorite: 'moyenne', valide: false }, { name: 'test4', categorie: 'a refaire ', priorite: 'basse', valide: false }, { name: 'test5', categorie: 'a refaire ', priorite: 'haute', valide: true }, { name: 'test6', categorie: 'a refaire ', priorite: 'basse', valide: false }, { name: 'test7', categorie: 'a refaire ', priorite: 'haute', valide: false }, { name: 'test8', categorie: 'a refaire ', priorite: 'moyenne', valide: true }];
+	var ListeExemple = [{ name: 'test', categorie: 'a refaire ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'haute', valide: false }, { name: 'test1', categorie: 'en cours ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'haute', valide: false }, { name: 'test2', categorie: 'a effacer ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'haute', valide: true }, { name: 'test3', categorie: 'a ameliorer ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'moyenne', valide: false }, { name: 'test4', categorie: 'a refaire ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'basse', valide: false }, { name: 'test5', categorie: 'a refaire ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'haute', valide: true }, { name: 'test6', categorie: 'a refaire ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'basse', valide: false }, { name: 'test7', categorie: 'a refaire ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'haute', valide: false }, { name: 'test8', categorie: 'a refaire ', texte: "blablabla", val: 12, spe: "aucune", priorite: 'moyenne', valide: true }];
 	
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
 	
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+	
+	    _this.state = { collection: [] };
+	    _this.onAddBtnClick = _this.onAddBtnClick.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(App, [{
+	    key: 'onAddBtnClick',
+	    value: function onAddBtnClick() {
+	      // on ajoute toute la collection
+	      // concat retourne un nouveau tableau qui concatene l'ancien et celui qu'on veut rajouter
+	      this.setState({ collection: this.state.collection.concat(ListeExemple) });
+	    }
+	
+	    /* onAddBtnClickUnElem(){
+	       this.setState
+	     }*/
+	
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_VueList2.default, { json: ListeExemple })
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.onAddBtnClick },
+	          'Ajouter collection'
+	        ),
+	        _react2.default.createElement(_VueList2.default, { json: this.state.collection }),
+	        _react2.default.createElement(_Formadd2.default, null)
 	      );
 	    }
 	  }]);
@@ -20807,7 +20837,7 @@
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20833,24 +20863,52 @@
 	  function VueElementList(props) {
 	    _classCallCheck(this, VueElementList);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(VueElementList).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(VueElementList).call(this, props));
+	
+	    _this.state = { hide: 'none' };
+	    _this.onDetailClick = _this.onDetailClick.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(VueElementList, [{
-	    key: "render",
+	    key: 'onDetailClick',
+	    value: function onDetailClick() {
+	      var newHideState = void 0;
+	      if (this.state.hide == 'none') {
+	        newHideState = 'block';
+	      } else {
+	        newHideState = 'none';
+	      }
+	      this.setState({ hide: newHideState });
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "li",
-	        null,
-	        "nom : ",
+	        'li',
+	        { onClick: this.onDetailClick },
+	        'nom : ',
 	        this.props.json.name,
-	        _react2.default.createElement("br", null),
-	        "cat : ",
+	        _react2.default.createElement('br', null),
+	        'cat : ',
 	        this.props.json.categorie,
-	        _react2.default.createElement("br", null),
-	        "prio :",
-	        this.props.json.priorite,
-	        _react2.default.createElement("br", null),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'detail',
+	          { style: { display: this.state.hide, color: 'red' } },
+	          'prio :',
+	          this.props.json.priorite,
+	          _react2.default.createElement('br', null),
+	          'texte : ',
+	          this.props.json.texte,
+	          _react2.default.createElement('br', null),
+	          'val : ',
+	          this.props.json.val,
+	          _react2.default.createElement('br', null),
+	          'spe : ',
+	          this.props.json.spe,
+	          _react2.default.createElement('br', null)
+	        ),
 	        this.props.json.valide ? "Validé" : "A faire"
 	      );
 	    }
@@ -20860,6 +20918,207 @@
 	}(_react2.default.Component);
 	
 	exports.default = VueElementList;
+
+/***/ },
+/* 170 */
+/*!****************************************!*\
+  !*** ./~/react-addons-update/index.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(/*! react/lib/update */ 171);
+
+/***/ },
+/* 171 */
+/*!*******************************!*\
+  !*** ./~/react/lib/update.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule update
+	 */
+	
+	/* global hasOwnProperty:true */
+	
+	'use strict';
+	
+	var _assign = __webpack_require__(/*! object-assign */ 4);
+	
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 25);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 7);
+	var hasOwnProperty = {}.hasOwnProperty;
+	
+	function shallowCopy(x) {
+	  if (Array.isArray(x)) {
+	    return x.concat();
+	  } else if (x && typeof x === 'object') {
+	    return _assign(new x.constructor(), x);
+	  } else {
+	    return x;
+	  }
+	}
+	
+	var COMMAND_PUSH = keyOf({ $push: null });
+	var COMMAND_UNSHIFT = keyOf({ $unshift: null });
+	var COMMAND_SPLICE = keyOf({ $splice: null });
+	var COMMAND_SET = keyOf({ $set: null });
+	var COMMAND_MERGE = keyOf({ $merge: null });
+	var COMMAND_APPLY = keyOf({ $apply: null });
+	
+	var ALL_COMMANDS_LIST = [COMMAND_PUSH, COMMAND_UNSHIFT, COMMAND_SPLICE, COMMAND_SET, COMMAND_MERGE, COMMAND_APPLY];
+	
+	var ALL_COMMANDS_SET = {};
+	
+	ALL_COMMANDS_LIST.forEach(function (command) {
+	  ALL_COMMANDS_SET[command] = true;
+	});
+	
+	function invariantArrayCase(value, spec, command) {
+	  !Array.isArray(value) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'update(): expected target of %s to be an array; got %s.', command, value) : invariant(false) : void 0;
+	  var specValue = spec[command];
+	  !Array.isArray(specValue) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'update(): expected spec of %s to be an array; got %s. ' + 'Did you forget to wrap your parameter in an array?', command, specValue) : invariant(false) : void 0;
+	}
+	
+	function update(value, spec) {
+	  !(typeof spec === 'object') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'update(): You provided a key path to update() that did not contain one ' + 'of %s. Did you forget to include {%s: ...}?', ALL_COMMANDS_LIST.join(', '), COMMAND_SET) : invariant(false) : void 0;
+	
+	  if (hasOwnProperty.call(spec, COMMAND_SET)) {
+	    !(Object.keys(spec).length === 1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Cannot have more than one key in an object with %s', COMMAND_SET) : invariant(false) : void 0;
+	
+	    return spec[COMMAND_SET];
+	  }
+	
+	  var nextValue = shallowCopy(value);
+	
+	  if (hasOwnProperty.call(spec, COMMAND_MERGE)) {
+	    var mergeObj = spec[COMMAND_MERGE];
+	    !(mergeObj && typeof mergeObj === 'object') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'update(): %s expects a spec of type \'object\'; got %s', COMMAND_MERGE, mergeObj) : invariant(false) : void 0;
+	    !(nextValue && typeof nextValue === 'object') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'update(): %s expects a target of type \'object\'; got %s', COMMAND_MERGE, nextValue) : invariant(false) : void 0;
+	    _assign(nextValue, spec[COMMAND_MERGE]);
+	  }
+	
+	  if (hasOwnProperty.call(spec, COMMAND_PUSH)) {
+	    invariantArrayCase(value, spec, COMMAND_PUSH);
+	    spec[COMMAND_PUSH].forEach(function (item) {
+	      nextValue.push(item);
+	    });
+	  }
+	
+	  if (hasOwnProperty.call(spec, COMMAND_UNSHIFT)) {
+	    invariantArrayCase(value, spec, COMMAND_UNSHIFT);
+	    spec[COMMAND_UNSHIFT].forEach(function (item) {
+	      nextValue.unshift(item);
+	    });
+	  }
+	
+	  if (hasOwnProperty.call(spec, COMMAND_SPLICE)) {
+	    !Array.isArray(value) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected %s target to be an array; got %s', COMMAND_SPLICE, value) : invariant(false) : void 0;
+	    !Array.isArray(spec[COMMAND_SPLICE]) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'update(): expected spec of %s to be an array of arrays; got %s. ' + 'Did you forget to wrap your parameters in an array?', COMMAND_SPLICE, spec[COMMAND_SPLICE]) : invariant(false) : void 0;
+	    spec[COMMAND_SPLICE].forEach(function (args) {
+	      !Array.isArray(args) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'update(): expected spec of %s to be an array of arrays; got %s. ' + 'Did you forget to wrap your parameters in an array?', COMMAND_SPLICE, spec[COMMAND_SPLICE]) : invariant(false) : void 0;
+	      nextValue.splice.apply(nextValue, args);
+	    });
+	  }
+	
+	  if (hasOwnProperty.call(spec, COMMAND_APPLY)) {
+	    !(typeof spec[COMMAND_APPLY] === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'update(): expected spec of %s to be a function; got %s.', COMMAND_APPLY, spec[COMMAND_APPLY]) : invariant(false) : void 0;
+	    nextValue = spec[COMMAND_APPLY](nextValue);
+	  }
+	
+	  for (var k in spec) {
+	    if (!(ALL_COMMANDS_SET.hasOwnProperty(k) && ALL_COMMANDS_SET[k])) {
+	      nextValue[k] = update(value[k], spec[k]);
+	    }
+	  }
+	
+	  return nextValue;
+	}
+	
+	module.exports = update;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 3)))
+
+/***/ },
+/* 172 */
+/*!************************************!*\
+  !*** ./src/client/app/Formadd.jsx ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var FormAdd = function (_React$Component) {
+	  _inherits(FormAdd, _React$Component);
+	
+	  function FormAdd(props) {
+	    _classCallCheck(this, FormAdd);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormAdd).call(this, props));
+	
+	    _this.state = {
+	      name: '',
+	      categorie: '',
+	      texte: '',
+	      val: 0,
+	      spe: '',
+	      priorite: '',
+	      valide: false
+	    };
+	    _this.alertValue = _this.alertValue.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(FormAdd, [{
+	    key: 'alertValue',
+	    value: function alertValue() {
+	      console.log("evaluation");
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'formulaire pour ajouter un element',
+	        _react2.default.createElement('input', { ref: 'input', defaultValue: 'test!' }),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.alertValue },
+	          'Alert Value'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return FormAdd;
+	}(_react2.default.Component);
+	
+	exports.default = FormAdd;
 
 /***/ }
 /******/ ]);

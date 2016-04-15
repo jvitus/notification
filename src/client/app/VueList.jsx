@@ -14,8 +14,10 @@ class VueList extends React.Component {
       {
         this.props.json.map( function(listvalue,i)
         {
-          return <VueElementList key={i} json={listvalue}  />;
-        })
+          return (
+              <VueElementList key={i} json={listvalue}  />       
+            );
+        } )
       }
       </ul>
     );
