@@ -9,3 +9,5 @@ http://putaindecode.io/fr/articles/js/react/cote-serveur/
 http://blog.cellenza.com/developpement-specifique/web-developpement-specifique/il-etait-une-fois-reactjs-episode-1/
 
 http://courses.reactjsprogram.com/
+
+http://andrewhfarmer.com/component-communication/
