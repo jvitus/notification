@@ -18,13 +18,12 @@ class VueElementList extends React.Component {
 	}
 	this.setState({hide : newHideState});
   }
-
   render() {
     return (
       <li onClick={this.onDetailClick}>
        nom : {this.props.json.name}<br/>
        cat : {this.props.json.categorie}<br/>
-       	<detail style={{display: this.state.hide, color:'red'}}>
+       	<detail style={{display: this.state.hide, color:'green'}}>
       	 prio :{this.props.json.priorite}<br/>
       	 texte : {this.props.json.texte}<br/>
       	 val : {this.props.json.val}<br/>
