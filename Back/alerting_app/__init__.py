@@ -7,6 +7,7 @@ from pyramid.config import Configurator
 from pyramid.renderers import JSON
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
+from pyramid.events import NewRequest
 
 from .controllers.security import SecurityRoot
 from .Models import (
@@ -14,12 +15,7 @@ from .Models import (
     Base,
     dbConfig,
     )
-from .Views import add_routes
-
-from .pyramid_jwtauth import (
-    JWTAuthenticationPolicy,
-    includeme
-    )
+from .Views import add_routes,add_cors_headers_response_callback
 
 """Json adapter for datetime objects."""
 def datetime_adapter(obj, request):
@@ -60,9 +56,9 @@ def main(global_config, **settings):
     config.add_renderer('json', json_renderer)
 
     # Set up authentication and authorization
-    includeme(config)
-    config.set_root_factory(SecurityRoot)
 
+    config.set_root_factory(SecurityRoot)
+    config.add_subscriber(add_cors_headers_response_callback, NewRequest)
 
     # Set the default permission level to 'read'
     config.set_default_permission('read')
