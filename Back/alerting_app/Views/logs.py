@@ -13,8 +13,9 @@ def getLogs(request):
 	params = request.params.mixed()
 	logTable = Base.metadata.tables['TLOG_MESSAGES']
 
-	query = text('SELECT ID,JCRE,ORIGIN FROM TLOG_MESSAGES WHERE ID > :val'
-		).bindparams(bindparam('val',5))
+	query = text('SELECT * FROM TLOG_MESSAGES ')
+	# ID > :val'
+	#	).bindparams(bindparam('val',5))
 	# query = select([logTable.c['SCOPE'],logTable.c['ORIGIN']]
 	# 	).group_by(logTable.c['SCOPE'],logTable.c['ORIGIN'])
 

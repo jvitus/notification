@@ -18,10 +18,15 @@
   },
   "homepage": "https://github.com/NaturalSolutions/notification#readme",
   "dependencies": {
+    "ag-grid": "^4.0.5",
+    "ag-grid-react": "^4.0.0",
     "axios": "^0.9.1",
+    "css-loader": "^0.23.1",
+    "griddle-react": "^0.5.1",
     "react": "^15.0.1",
     "react-addons-update": "^15.0.1",
-    "react-dom": "^15.0.1"
+    "react-dom": "^15.0.1",
+    "style-loader": "^0.13.1"
   },
   "devDependencies": {
     "babel-core": "^6.7.6",

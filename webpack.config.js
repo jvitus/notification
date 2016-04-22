@@ -33,6 +33,10 @@ var config = {
                             -loader : le loader en question a appliquer 
                 */
     loaders : [
+       {
+                test: /\.css$/,
+                loader: "style!css"
+            },
       {
         test : /\.jsx?/, //expression réguliere qui va prendre tout les fichiers avec une extension .js ou .jsx
         include : APP_DIR,
@@ -40,6 +44,11 @@ var config = {
       }
     ]
   },
+  resolve: {
+        alias: {
+            "ag-grid-root" : __dirname + "/node_modules/ag-grid"
+        }
+    },
   /*
 
   */
