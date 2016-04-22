@@ -23,7 +23,7 @@ https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopl
 
 # Situations:
 
-<<<<<<< HEAD
+
 Strict minimum pour une application react
 
 #Tuto utiles:
@@ -33,6 +33,4 @@ Strict minimum pour une application react
 
 	Sur ECMAScript 6
 		http://es6-features.org/
-=======
-Strict minimum pour une application react + test tuto redux
->>>>>>> 4d63d75675f46028c2a25ef33318718c76fc9ee1
+
