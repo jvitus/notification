@@ -9,8 +9,8 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 
-var BUILD_DIR = path.resolve(__dirname, 'src/client/public'); // dossier source assemble
-var APP_DIR = path.resolve(__dirname, 'src/client/app');      // dossier source du projet react
+var BUILD_DIR = path.resolve(__dirname, 'Front/client/public'); // dossier source assemble
+var APP_DIR = path.resolve(__dirname, 'Front/client/app');      // dossier source du projet react
 
 /*permet de dupliquer la page index.html de src dans build et lui rajoute le fichier bundle a la fin*/
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({

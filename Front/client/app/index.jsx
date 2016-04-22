@@ -161,7 +161,7 @@ class App extends React.Component {
   testGet() {
     //this.setState ( {dataRes : 1}  );
     let dataResponse = []
-    axios.get('https://api.github.com/users/jvitus' )
+    axios.get('http://127.0.0.1:6544/alerting-core/logs/infos' )
     .then( function (response) {
 
       console.log(response.data)

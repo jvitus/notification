@@ -1,4 +1,22 @@
-### test if the match url is integer
+from pyramid.httpexceptions import default_exceptionresponse_view, HTTPNotFound
+from pyramid.interfaces import IRoutesMapper
+from pyramid.view import view_config
+from pyramid.security import NO_PERMISSION_REQUIRED
+
+
+def add_cors_headers_response_callback(event):
+    def cors_headers(request, response):
+        response.headers.update({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST,GET,DELETE,PUT,OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Max-Age': '1728000',
+        })
+    event.request.add_response_callback(cors_headers)
+
+
+
 def integers(*segment_names):
     def predicate(info, request):
         match = info['match']
