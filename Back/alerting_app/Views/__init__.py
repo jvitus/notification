@@ -34,7 +34,8 @@ def integers(*segment_names):
 
 def add_routes(config):
     ##### Security routes #####
-    config.add_route('log/info', 'alerting-core/logs/infos')
+    config.add_route('infos', 'alerting-core/infos')
+    config.add_route('details' , 'alerting-core/details/{id}')
     # config.add_route('security/logout', 'portal-core/security/logout')
     # config.add_route('security/has_access', 'portal-core/security/has_access')
 

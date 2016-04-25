@@ -12,6 +12,7 @@ class GenGrille extends React.Component{
 			dataCol :[]
 		}
 		 this.transformerCol = this.transformerCol.bind(this)
+		 this.sizeToFit = this.sizeToFit.bind(this)
 
 		this.gridOptions = {
 		// this is how you listen for events using gridOptions
@@ -21,23 +22,46 @@ class GenGrille extends React.Component{
 			rowHeight: 30,
 			onRowClicked: (row) => {
 				console.log("on va rediriger vers une vue details")
+				console.log(row.data.ID)
+						let dataResponse = []
+
+				axios.get('http://127.0.0.1:6544/alerting-core/details/'+row.data.ID )
+				.then( function (response) {
+						this.setState ( {dataRow : response.data  } )
+						this.transformerCol(this.state.dataRow[0])
+
+				}.bind(this))
+				.catch(function (response){
+						console.log(response)
+					}) 
+
+
 			},
 			// this is a simple property
 			rowBuffer: 10 // no need to set this, the default is fine for almost all scenarios
 		};
+
+		
+
 
 		var resizeGrid = () => {
 			this.gridOptions.api.sizeColumnsToFit()
 		}
 		
 	}
+
+	sizeToFit() {
+    this.gridOptions.api.sizeColumnsToFit();
+		}
+
 	componentDidMount() {
 		let dataResponse = []
 
-		axios.get('http://127.0.0.1:6544/alerting-core/logs/infos' )
+		axios.get('http://127.0.0.1:6544/alerting-core/infos' )
 		.then( function (response) {
 				this.setState ( {dataRow : response.data  } )
 				this.transformerCol(this.state.dataRow[0])
+				this.sizeToFit()
 		}.bind(this))
 		.catch(function (response){
 				console.log(response)
@@ -52,6 +76,7 @@ class GenGrille extends React.Component{
 		transformerCol(JsonObjet){
 				var colAutoGen = []
 				for(var champ in JsonObjet){
+					console.log("champ :" , champ)
 				colAutoGen.push({
 						headerName : champ,
 						field: champ,
@@ -70,7 +95,7 @@ class GenGrille extends React.Component{
 	render () {
 		return (
 				<div>
-						<div className="ag-dark">
+						<div style={{height: 400}} className="ag-dark">
 								<AgGridReact
 								gridOptions={this.gridOptions}
 								onGridReady={this.onGridReady.bind(this)}
