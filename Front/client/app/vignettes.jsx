@@ -1,5 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import Label from 'react-bootstrap/lib/Label'
+import Grid from 'react-bootstrap/lib/Grid'
+import Row from 'react-bootstrap/lib/Row'
+import Col from 'react-bootstrap/lib/Col'
+import Image from 'react-bootstrap/lib/Image'
+
 class Vignettes extends React.Component {
 
   constructor(props) {
@@ -29,21 +35,23 @@ class Vignettes extends React.Component {
 
   render() {
     return (
-      <ul>
-      {
-
-        this.state.listeVignettes.map( function(listval,i)
+      <Grid fluid={true}>
+        <Row>
         {
-          var clickIndex = this.onDetailClick.bind(this,i)
-          return (
-              <li key={i} onClick={clickIndex}>
-                {listval.ORIGIN} 
-                <b> {listval.NB_ERREUR} erreurs</b>
-              </li>     
-            );
-        }.bind(this) )
-      }
-      </ul>
+
+          this.state.listeVignettes.map( function(listval,i)
+          {
+            var clickIndex = this.onDetailClick.bind(this,i)
+            return (
+                <Col key={i} onClick={clickIndex} xs={12} sm={6} md={4} lg={3} >
+                 <Image src="./assets/thumbnail.png" rounded />
+                  <h3>{listval.ORIGIN} <Label bsStyle="danger"> {listval.NB_ERREUR} </Label> </h3>
+                </Col>     
+              );
+          }.bind(this) )
+        }
+        </Row>
+      </Grid>
     );
   }
 

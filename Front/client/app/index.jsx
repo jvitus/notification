@@ -4,7 +4,7 @@ import update from 'react-addons-update';
 import axios from 'axios';
 import GenGrille from './grid/GenGrille.jsx';
 import Vignettes from './Vignettes.jsx';
-import {Button} from 'react-bootstrap/lib/Button';
+
 
 import 'ag-grid-root/dist/styles/ag-grid.css';
 import 'ag-grid-root/dist/styles/theme-blue.css';

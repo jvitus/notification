@@ -10,7 +10,8 @@ class GenGrille extends React.Component{
 			showGrid: true,
 			dataRow : [],
 			dataCol :[],
-			quickFilterText: null
+			quickFilterText: null,
+			rowHeight : 30
 		}
 		 this.transformerCol = this.transformerCol.bind(this)
 		 this.sizeToFit = this.sizeToFit.bind(this)
@@ -23,6 +24,7 @@ class GenGrille extends React.Component{
 			rowHeight: 30,
 			onRowClicked: (row) => {
 				console.log("on va rediriger vers une vue details")
+				this.setState({rowHeight : 350})
 				console.log(row.data.ID)
 						let dataResponse = []
 
@@ -30,6 +32,10 @@ class GenGrille extends React.Component{
 				.then( function (response) {
 						this.setState ( {dataRow : response.data  } )
 						this.transformerCol(this.state.dataRow[0])
+						
+						console.log("hauteur" + this.state.rowHeight)
+						this.sizeToFit()
+						this.state.dataCol.ID.width =30;
 
 				}.bind(this))
 				.catch(function (response){
@@ -67,7 +73,11 @@ class GenGrille extends React.Component{
 		axios.get('http://127.0.0.1:6544/alerting-core/infos' )
 		.then( function (response) {
 				this.setState ( {dataRow : response.data  } )
+				console.log("avant transform")
+				console.log(this.state.dataRow[0])
+				console.log(response.data[0])
 				this.transformerCol(this.state.dataRow[0])
+				this.setState({rowHeight : 30})
 				this.sizeToFit()
 		}.bind(this))
 		.catch(function (response){
@@ -82,15 +92,36 @@ class GenGrille extends React.Component{
 
 		transformerCol(JsonObjet){
 				var colAutoGen = []
+				console.log(JsonObjet)
 				for(var champ in JsonObjet){
 					console.log("champ :" , champ)
-				colAutoGen.push({
-						headerName : champ,
-						field: champ,
-						width : 150,
-						filter: 'text',
-    				filterParams: {apply: true, newRowsAction: 'keep'}
+					if( champ === 'ID' || champ ==='id')
+					{
+						console.log("on va mettre le champ id")
+						colAutoGen.push({
+							headerName : champ,
+							field: champ,
+							width : 30,
+							filter: 'text',
+	    				filterParams: {apply: true, newRowsAction: 'keep'},
+	    				pinned: 'left',
+	    				suppressMovable	: true
 						})
+					}
+					else{
+							colAutoGen.push({
+									headerName : champ,
+									field: champ,
+									width : 100,
+									filter: 'text',
+			    				filterParams: {apply: true, newRowsAction: 'keep'},
+			    				cellStyle: {
+			            'white-space': 'normal',
+			            'word-wrap' :'break-word'
+			       			 }
+
+									})
+						}
 				}
 		this.setState( {dataCol : colAutoGen} )
 		}
@@ -117,7 +148,7 @@ class GenGrille extends React.Component{
 								enableSorting="true"
 								enableFilter="true"
 								groupHeaders="true"
-								rowHeight="22"
+								rowHeight={this.state.rowHeight}
 								debug="true"
 								/>
 						</div>
