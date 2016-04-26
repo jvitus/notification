@@ -18,11 +18,4 @@ alerting_app/Views/user.py
 alerting_app/Views/user_adress.py
 alerting_app/controllers/__init__.py
 alerting_app/controllers/security.py
-alerting_app/pyramid_jwtauth/JWTAuthTktCookieHelper.py
-alerting_app/pyramid_jwtauth/__init__.py
-alerting_app/pyramid_jwtauth/jwtTest.py
-alerting_app/pyramid_jwtauth/utils.py
-alerting_app/pyramid_jwtauth/tests/__init__.py
-alerting_app/pyramid_jwtauth/tests/test_jwtauth.py
-alerting_app/pyramid_jwtauth/tests/test_utils.py
 alerting_app/scripts/__init__.py
