@@ -9,7 +9,8 @@ class GenGrille extends React.Component{
 		this.state = {
 			showGrid: true,
 			dataRow : [],
-			dataCol :[]
+			dataCol :[],
+			quickFilterText: null
 		}
 		 this.transformerCol = this.transformerCol.bind(this)
 		 this.sizeToFit = this.sizeToFit.bind(this)
@@ -38,17 +39,23 @@ class GenGrille extends React.Component{
 
 			},
 			// this is a simple property
-			rowBuffer: 10 // no need to set this, the default is fine for almost all scenarios
+			rowBuffer: 10, // no need to set this, the default is fine for almost all scenarios
+			enableFilter : true
 		};
+
 
 		
 
 
 		var resizeGrid = () => {
 			this.gridOptions.api.sizeColumnsToFit()
+			}	
 		}
-		
-	}
+
+		onQuickFilterText(event) {
+			console.log("filtre :"+event.target.value)
+			this.setState({quickFilterText: event.target.value});
+		}
 
 	sizeToFit() {
     this.gridOptions.api.sizeColumnsToFit();
@@ -80,7 +87,9 @@ class GenGrille extends React.Component{
 				colAutoGen.push({
 						headerName : champ,
 						field: champ,
-						width : 150
+						width : 150,
+						filter: 'text',
+    				filterParams: {apply: true, newRowsAction: 'keep'}
 						})
 				}
 		this.setState( {dataCol : colAutoGen} )
@@ -95,9 +104,11 @@ class GenGrille extends React.Component{
 	render () {
 		return (
 				<div>
-						<div style={{height: 400}} className="ag-dark">
+				<input type="text" onChange={this.onQuickFilterText.bind(this)} placeholder="Type text to filter..."/>
+						<div style={{height: 400}} className="ag-blue">
 								<AgGridReact
 								gridOptions={this.gridOptions}
+								quickFilterText={this.state.quickFilterText}
 								onGridReady={this.onGridReady.bind(this)}
 								columnDefs = {this.state.dataCol}
 								rowData = {this.state.dataRow}

@@ -34,6 +34,7 @@ def integers(*segment_names):
 
 def add_routes(config):
     ##### Security routes #####
+    config.add_route('vignettes', 'alerting-core/vignettes')
     config.add_route('infos', 'alerting-core/infos')
     config.add_route('details' , 'alerting-core/details/{id}')
     # config.add_route('security/logout', 'portal-core/security/logout')
@@ -45,7 +46,7 @@ def add_routes(config):
     
     # config.add_route('core/user/id', 'portal-core/users/{id}')
     # config.add_route('core/user/id/adress', 'portal-core/users/{id}/adress')
-
+#SELECT ORIGIN FROM TLOG_MESSAGES group by ORIGIN;
     # config.add_route('core/adress/id', 'portal-core/adress/{id}')
 
     pass

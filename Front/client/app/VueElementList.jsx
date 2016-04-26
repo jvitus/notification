@@ -9,15 +9,17 @@ class VueElementList extends React.Component {
   }
 
   onDetailClick() {
-  	let newHideState;
-  	if (this.state.hide == 'none'){
-  		newHideState= 'block';
-  	}
-	else {
-		newHideState = 'none';
-	}
-	this.setState({hide : newHideState});
+    let newHideState;
+    if (this.state.hide == 'none'){
+      newHideState= 'block';
+    }
+    else {
+      newHideState = 'none';
+      ;
+    }
+    this.setState({hide : newHideState});
   }
+
   render() {
     return (
       <li onClick={this.onDetailClick}>
