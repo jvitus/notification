@@ -9,3 +9,5 @@ node_modules/
 **/*.rar
 
 npm-debug.log
+
+**/development.ini
