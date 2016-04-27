@@ -20,12 +20,15 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 
-var config = {
+module.exports = {
   /*entry est un array de string qui prend le chemin des fichiers d'entrée de l'application*/
   entry: [
   APP_DIR + '/index.jsx'
   ],
+  devtool: 'source-map',
   module : {
+
+    
     /* loaders va transformer les fichiers en Javascript ''regular'' */
     /* il prend 3 arguments :
                             -test : l'extention des fichiers a transformer
@@ -58,5 +61,3 @@ var config = {
   },
   plugins : [HTMLWebpackPluginConfig]
 };
-
-module.exports = config;
