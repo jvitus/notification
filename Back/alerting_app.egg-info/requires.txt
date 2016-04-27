@@ -1,9 +1,0 @@
-pyramid
-pypyodbc
-pyramid_chameleon
-pyramid_debugtoolbar
-pyramid_tm
-sqlalchemy
-transaction
-zope.sqlalchemy
-waitress
