@@ -1,2 +1,11 @@
 #on ignore les dossiers suivant
 node_modules/
+
+**/*.pyc
+**/*.ini
+**/*.egg-info
+**/*.egg-info/*
+**/*.egg
+**/*.rar
+
+npm-debug.log
