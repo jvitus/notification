@@ -24,7 +24,7 @@ class Vignettes extends React.Component {
     componentDidMount() {
     let dataResponse = []
 
-    axios.get('http://127.0.0.1:6544/alerting-core/vignettes' )
+    axios.get('http://127.0.0.1:6547/alerting-core/vignettes' )
     .then( function (response) {
         this.setState ( {listeVignettes : response.data  } )
     }.bind(this))
@@ -38,7 +38,6 @@ class Vignettes extends React.Component {
       <Grid fluid={true}>
         <Row>
         {
-
           this.state.listeVignettes.map( function(listval,i)
           {
             var clickIndex = this.onDetailClick.bind(this,i)
