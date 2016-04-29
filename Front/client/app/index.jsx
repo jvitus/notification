@@ -21,7 +21,7 @@ ReactDOM.render(
     <Route path="/" component={App}>
       <IndexRoute component={Vignettes}> </IndexRoute>
       <Route path="/infos/:origin" component={GenGrille} > </Route>
-      <Route path="/infos/:origin/:id" component={Details} > </Route>
+      <Route path="/infos/:origin/:id" component={GenGrille} > </Route>
 
       <Route path="*" component={NotFound}/>
     </Route>
