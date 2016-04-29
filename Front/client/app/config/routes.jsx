@@ -1,19 +1,18 @@
 import React from 'react';
-import ReactRouter  from 'react-router';
+import { Router, Route, hashHistory } from 'react-router'
+import Main from '../Main.jsx'
+import Home from '../Home.jsx'
 
-var Router = ReactRouter.Router
-var Route = ReactRouter.Route
-var hashHistory = ReactRouter.hashHistory;
-var IndexRoute = ReactRouter.IndexRoute;
+// var Router = ReactRouter.Router
+// var Route = ReactRouter.Route
+// var hashHistory = ReactRouter.hashHistory;
+// var IndexRoute = ReactRouter.IndexRoute;
 
-var Main = require('../Main');
-var Home = require("../Home");
 
 var routes = (
   <Router history={hashHistory}>
-    <Route path='/' component={Main}>
-      <IndexRoute component={Home} />
-    </Route>
+    <Route path='/' component={Main} />
+    <Route path='/about' component={Home} />
   </Router>
 );
 

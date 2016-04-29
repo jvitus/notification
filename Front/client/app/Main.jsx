@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
+import { Link } from 'react-router'
 
-class Main extends React.Component {
+export class Main extends React.Component {
 
   constructor(props) {
     super(props);
@@ -9,8 +10,11 @@ class Main extends React.Component {
   render() {
     return (
       <div>
+      <h1>React Router Tutorial</h1>
+        <ul role="nav">
+          <li><Link to="/about">About</Link></li>
+        </ul>
       hello from Main
-      {this.prop.children}
       </div>
     )
   }
@@ -19,4 +23,4 @@ class Main extends React.Component {
 
 
 
-export default Main;
+//export default Main;

@@ -5,6 +5,7 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import Image from 'react-bootstrap/lib/Image'
+import {Link} from 'react-router'
 
 class Vignettes extends React.Component {
 
@@ -19,12 +20,13 @@ class Vignettes extends React.Component {
   onDetailClick(index) {
     console.log("boum on a clique sur "+index)
     console.log("on va donc sur le domaine " +this.state.listeVignettes[index].ORIGIN)
+   // this.props.router.push("infos/"+this.state.listeVignettes[index].ORIGIN)
   }
 
     componentDidMount() {
     let dataResponse = []
 
-    axios.get('http://127.0.0.1:6547/alerting-core/vignettes' )
+    axios.get('http://127.0.0.1:6544/alerting-core/vignettes' )
     .then( function (response) {
         this.setState ( {listeVignettes : response.data  } )
     }.bind(this))
@@ -41,11 +43,14 @@ class Vignettes extends React.Component {
           this.state.listeVignettes.map( function(listval,i)
           {
             var clickIndex = this.onDetailClick.bind(this,i)
+            let path = "/infos/"+listval.ORIGIN
             return (
-                <Col key={i} onClick={clickIndex} xs={12} sm={6} md={4} lg={3} >
+                <Link key={i} to={path} >
+                <Col  onClick={clickIndex} xs={12} sm={6} md={4} lg={3} >
                  <Image src="./assets/thumbnail.png" rounded />
                   <h3>{listval.ORIGIN} <Label bsStyle="danger"> {listval.NB_ERREUR} </Label> </h3>
-                </Col>     
+                </Col>   
+                </Link>  
               );
           }.bind(this) )
         }
