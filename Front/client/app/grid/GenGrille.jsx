@@ -27,25 +27,15 @@ export default class GenGrille extends React.Component{
 			rowHeight: 30,
 			rowModelType: 'pagination',
 			onRowClicked: (row) => {
-				console.log("on va rediriger vers une vue details")
-				let pathD = this.props.routeParams.origin+"/"+row.data.ID
-				let dataResponse = []
-			/*	this.setState({rowHeight : 375})
-				 axios.get('http://127.0.0.1:6544/alerting-core/details/'+row.data.ID )
-					.then( function (response) {
-							this.setState ( {dataRow : response.data  } )
-							this.transformerCol(this.state.dataRow[0])
-							this.sizeToFit()
-					}.bind(this))
-					.catch(function (response){
-							console.log(response)
-						})*/
-				console.log("on va vers"+pathD)
-				browserHistory.push(pathD)
+						/*quand on clique sur une ligne
+						on veut attaquer l'API avec l'id de la ligne en question
+						pour afficher les details
+						*/
+				browserHistory.push("/infos/"+this.props.routeParams.origin+"/"+row.data.ID)
 			},
 			// this is a simple property
 			rowBuffer: 10, // no need to set this, the default is fine for almost all scenarios
-			enableFilter : true
+			enableFilter : false
 		}
 
 
