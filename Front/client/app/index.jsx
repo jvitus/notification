@@ -7,8 +7,5 @@ import {Router, browserHistory} from 'react-router'
 import 'ag-grid-root/dist/styles/ag-grid.css'
 import 'ag-grid-root/dist/styles/theme-blue.css'
 
-
-const app = document.getElementById('root')
-
 ReactDOM.render(<Router history={browserHistory} routes={routes} />,
-root);
+root)

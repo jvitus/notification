@@ -4,7 +4,6 @@ import Details from '../components/Details.jsx'
 import App from '../components/app.jsx'
 import NotFound from '../components/NotFound.jsx'
 
-
 const routes = {
   path: '/',
   component: App,
@@ -12,8 +11,7 @@ const routes = {
   childRoutes: [
     { path: 'infos/:origin', component: GenGrille },
     { path: 'infos/:origin/:id' , component : Details },
-    { path: '*' , component : NotFound },
-
+    { path: '*' , component : NotFound }
   ]
 }
 
