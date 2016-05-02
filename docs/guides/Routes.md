@@ -20,8 +20,6 @@ initialise le router avec deux props history et routes :
 * routes la configuration des routes :
 
 
-  
-    
  import GenGrille from '../grid/GenGrille.jsx'
  import Vignettes from '../components/Vignettes.jsx'
  import Details from '../components/Details.jsx'
