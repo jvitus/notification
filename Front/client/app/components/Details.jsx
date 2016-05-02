@@ -20,14 +20,14 @@ export default class Details extends React.Component{
 
 	componentDidMount() {
 
-		let dataResponse = []
-		// axios.get('http://127.0.0.1:6544/alerting-core/details/276')
-		// 	.then( function (response) {
-		// 			this.setState ( {dataRow : response.data  } )
-		// 	}.bind(this))
-		// 	.catch(function (response){
-		// 			console.log(response)
-		// 		})
+	/*	let dataResponse = []
+		 axios.get('http://127.0.0.1:6544/alerting-core/details/276')
+		 	.then( function (response) {
+		 			this.setState ( {dataRow : response.data  } )
+		 	}.bind(this))
+		 	.catch(function (response){
+		 			console.log(response)
+		 		})*/
 	}
 
 	render () {
