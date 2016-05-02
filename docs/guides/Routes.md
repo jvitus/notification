@@ -20,15 +20,14 @@ initialise le router avec deux props history et routes :
 * routes la configuration des routes :
 
 
- const routes = {
-  path: '/',
-  component: App,
-  indexRoute: { component: Vignettes },
-  childRoutes: [
-    { path: 'infos/:origin', component: GenGrille },
-    { path: 'infos/:origin/:id' , component : Details },
-    { path: '\*' , component : NotFound }
-  ]
- }
- 
- module.exports = routes;
+    const routes = {
+     path: '/',
+     component: App,
+     indexRoute: { component: Vignettes },
+     childRoutes: [
+       { path: 'infos/:origin', component: GenGrille },
+       { path: 'infos/:origin/:id' , component : Details },
+       { path: '\*' , component : NotFound }
+     ]
+    }
+    module.exports = routes;
