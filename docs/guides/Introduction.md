@@ -8,7 +8,7 @@ Vous êtes maintenant dans le dossier du projet il faut installer le Back et les
 
 | Back | Front|
 |------|------|
-|depuis le dossier notification |
+|depuis le dossier notification ||
 | 1) cd Back | 1) npm run install |
 |2) python setup.py develop | 2) npm run start    |
 |3) modifier le fichier development.ini ligne 30 avec les bons paramètres pour la variable sqlalchemy.url |3) webpack-de-server se lance sur http://127.0.0.1:8080/ |
