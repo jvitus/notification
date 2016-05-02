@@ -17,7 +17,7 @@ initialise le router avec deux props history et routes :
   * [hashHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#hashhistory)
   * [createMemoryHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#creatememoryhistory)
 
-* routes la configuration des routes :
+* routes la configuration des routes 
 
 
     const routes = {
