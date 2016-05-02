@@ -12,12 +12,12 @@ ReactDOM.render(<Router history={browserHistory} routes={routes} />,
 root);
 
 initialise le router avec deux props history et routes :
-  -history il peut y en avoir 3 types :
-      * [browserHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#browserhistory) est celui recommandé d'aprés la doc officielle pour les applications sur navigateurs
-      * [hashHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#hashhistory)
-      * [createMemoryHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#creatememoryhistory)
+ * history il peut y en avoir 3 types :
+  * [browserHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#browserhistory) est celui recommandé d'aprés la doc officielle pour les applications sur navigateurs
+  * [hashHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#hashhistory)
+  * [createMemoryHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#creatememoryhistory)
 
-  -routes la configuration des routes :
+* routes la configuration des routes :
   
     
     import GenGrille from '../grid/GenGrille.jsx'
