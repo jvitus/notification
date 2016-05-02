@@ -5,8 +5,8 @@ import { hashHistory } from 'react-router'
 
 
 
-class GenGrille extends React.Component{
-	
+export default class GenGrille extends React.Component{
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -31,33 +31,13 @@ class GenGrille extends React.Component{
 				let pathD = "infos/"+this.props.routeParams.origin+"/"+row.data.ID
 				console.log("on va vers"+pathD)
 				hashHistory.push(pathD)
-
-				this.setState({rowHeight : 375})
-				console.log(row.data.ID)
-						let dataResponse = []
-
-				axios.get('http://127.0.0.1:6544/alerting-core/details/'+row.data.ID )
-				.then( function (response) {
-						this.setState ( {dataRow : response.data  } )
-						this.transformerCol(this.state.dataRow[0])
-						
-						console.log("hauteur" + this.state.rowHeight)
-						this.sizeToFit()
-						this.state.dataCol.ID.width =30;
-
-				}.bind(this))
-				.catch(function (response){
-						console.log(response)
-					}) 
-
-
 			},
 			// this is a simple property
 			rowBuffer: 10, // no need to set this, the default is fine for almost all scenarios
 			enableFilter : true
 		}
 
-		
+
 	}
 
 
@@ -94,7 +74,7 @@ class GenGrille extends React.Component{
 		}.bind(this))
 		.catch(function (response){
 				console.log(response)
-			}) 
+			})
 		console.log("ON rappel")
 
 		}
@@ -105,8 +85,8 @@ class GenGrille extends React.Component{
   	console.log("le super historique est " +this.props.routeParams.origin)
   	console.log("LA SUPER ID  " +this.props.routeParams.id)
 	}
-/* 
-  prend en entré un json 
+/*
+  prend en entré un json
   se sert des cles ( { key : val } )
   generer les headers du tableau de la forme ( { headerNale : key , filed : key , witdh : nb_pixel })
   */
@@ -179,5 +159,3 @@ class GenGrille extends React.Component{
 	}
 
 }
-
-export default GenGrille;

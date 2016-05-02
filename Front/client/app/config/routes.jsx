@@ -1,19 +1,20 @@
-import React from 'react';
-import { Router, Route, hashHistory } from 'react-router'
-import Main from '../Main.jsx'
-import Home from '../Home.jsx'
-
-// var Router = ReactRouter.Router
-// var Route = ReactRouter.Route
-// var hashHistory = ReactRouter.hashHistory;
-// var IndexRoute = ReactRouter.IndexRoute;
+import GenGrille from '../grid/GenGrille.jsx'
+import Vignettes from '../components/Vignettes.jsx'
+import Details from '../components/Details.jsx'
+import App from '../components/app.jsx'
+import NotFound from '../components/NotFound.jsx'
 
 
-var routes = (
-  <Router history={hashHistory}>
-    <Route path='/' component={Main} />
-    <Route path='/about' component={Home} />
-  </Router>
-);
+const routes = {
+  path: '/',
+  component: App,
+  indexRoute: { component: Vignettes },
+  childRoutes: [
+    { path: 'infos/:origin', component: GenGrille },
+    { path: 'infos/:origin/:id' , component : Details },
+    { path: '*' , component : NotFound },
+
+  ]
+}
 
 module.exports = routes;

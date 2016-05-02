@@ -1,8 +1,9 @@
-/************************************************************/
-/* 															*/
-/*	 fichier de config de webpack							*/
-/*															*/
-/************************************************************/
+
+/*************************************************************/
+/*                                                           */
+/*	 fichier de config de webpack                            */
+/*                                                           */
+/*************************************************************/
 
 var webpack = require('webpack');
 var path = require('path');
@@ -21,19 +22,25 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 
 
 module.exports = {
+  devtool: 'source-map',
+  devServer: {
+    /* Les SPA utilise généralement un seul fichier d'index accessible par les navigateurs (ici index.html)
+       la navgation dans l'application est traité par react
+       il y avait donc un soucis lors d'un rafraichissement ou d'un accés direct a un url
+       étant donné que la ressource n'existe pas "réellement" sur le serveur
+    */
+  historyApiFallback: true
+  },
   /*entry est un array de string qui prend le chemin des fichiers d'entrée de l'application*/
   entry: [
   APP_DIR + '/index.jsx'
   ],
-  devtool: 'source-map',
   module : {
-
-    
     /* loaders va transformer les fichiers en Javascript ''regular'' */
     /* il prend 3 arguments :
                             -test : l'extention des fichiers a transformer
                             -include or exclude : les dossiers ou il faut ou pas appliquer le loaders
-                            -loader : le loader en question a appliquer 
+                            -loader : le loader en question a appliquer
                 */
     loaders : [
        {
@@ -52,12 +59,16 @@ module.exports = {
             "ag-grid-root" : __dirname + "/node_modules/ag-grid"
         }
     },
-  /*
-
-  */
   output: {
     path: BUILD_DIR,      // chemin de sortie
-    filename: 'bundle.js'   // nom du fichier qui contiendra les sources
+    filename: '/bundle.js'   // nom du fichier qui contiendra les sources
   },
-  plugins : [HTMLWebpackPluginConfig]
+  plugins : [
+    HTMLWebpackPluginConfig,
+    new webpack.DefinePlugin({
+      'process.env': {
+      'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  ]
 };
