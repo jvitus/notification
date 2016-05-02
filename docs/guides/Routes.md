@@ -18,6 +18,7 @@ initialise le router avec deux props history et routes :
       * [createMemoryHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#creatememoryhistory)
 
   -routes la configuration des routes :
+  
 
   import GenGrille from '../grid/GenGrille.jsx'
   import Vignettes from '../components/Vignettes.jsx'
