@@ -1,9 +1,12 @@
 var React = require('react');
 import {AgGridReact} from 'ag-grid-react';
 import axios from 'axios';
+import { browserHistory } from 'react-router'
 
-class GenGrille extends React.Component{
-	
+
+
+export default class GenGrille extends React.Component{
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -22,70 +25,69 @@ class GenGrille extends React.Component{
 			  console.log('event onModelUpdated received');
 			},
 			rowHeight: 30,
+			rowModelType: 'pagination',
 			onRowClicked: (row) => {
-				console.log("on va rediriger vers une vue details")
-				this.setState({rowHeight : 350})
-				console.log(row.data.ID)
-						let dataResponse = []
-
-				axios.get('http://127.0.0.1:6544/alerting-core/details/'+row.data.ID )
-				.then( function (response) {
-						this.setState ( {dataRow : response.data  } )
-						this.transformerCol(this.state.dataRow[0])
-						
-						console.log("hauteur" + this.state.rowHeight)
-						this.sizeToFit()
-						this.state.dataCol.ID.width =30;
-
-				}.bind(this))
-				.catch(function (response){
-						console.log(response)
-					}) 
-
-
+						/*quand on clique sur une ligne
+						on veut attaquer l'API avec l'id de la ligne en question
+						pour afficher les details
+						*/
+				browserHistory.push("/infos/"+this.props.routeParams.origin+"/"+row.data.ID)
 			},
 			// this is a simple property
 			rowBuffer: 10, // no need to set this, the default is fine for almost all scenarios
-			enableFilter : true
-		};
-
-
-		
-
-
-		var resizeGrid = () => {
-			this.gridOptions.api.sizeColumnsToFit()
-			}	
+			enableFilter : false
 		}
 
-		onQuickFilterText(event) {
-			console.log("filtre :"+event.target.value)
-			this.setState({quickFilterText: event.target.value});
-		}
 
-	sizeToFit() {
+	}
+
+
+
+	onQuickFilterText(event) {
+		console.log("filtre :"+event.target.value)
+		this.setState({quickFilterText: event.target.value});
+	}
+
+	sizeToFit(e) {
     this.gridOptions.api.sizeColumnsToFit();
-		}
+	}
+
+	onPageSizeChanged (pageSize) {
+		this.state.pageSize = new Number(pageSize);
+		console.log("page size blablabal")
+		createNewDatasource();
+	}
+
 
 	componentDidMount() {
-		let dataResponse = []
+		window.addEventListener('resize', this.sizeToFit);
+		  	let dataResponse = []
 
-		axios.get('http://127.0.0.1:6544/alerting-core/infos' )
+		axios.get('http://127.0.0.1:6544/alerting-core/infos?ORIGIN='+this.props.routeParams.origin+'&page=1&per_page=20' )
 		.then( function (response) {
 				this.setState ( {dataRow : response.data  } )
 				console.log("avant transform")
 				console.log(this.state.dataRow[0])
 				console.log(response.data[0])
-				this.transformerCol(this.state.dataRow[0])
 				this.setState({rowHeight : 30})
+				this.transformerCol(this.state.dataRow[0])
 				this.sizeToFit()
 		}.bind(this))
 		.catch(function (response){
 				console.log(response)
-			}) 
+			})
+		console.log("ON rappel")
+
 		}
-/* 
-  prend en entré un json 
+
+	componentWillReceiveProps (nextProps) {
+  	console.log("on a actualisé la props youhouuuuu"+nextProps.origin)
+
+  	console.log("le super historique est " +this.props.routeParams.origin)
+  	console.log("LA SUPER ID  " +this.props.routeParams.id)
+	}
+/*
+  prend en entré un json
   se sert des cles ( { key : val } )
   generer les headers du tableau de la forme ( { headerNale : key , filed : key , witdh : nb_pixel })
   */
@@ -104,7 +106,6 @@ class GenGrille extends React.Component{
 							width : 30,
 							filter: 'text',
 	    				filterParams: {apply: true, newRowsAction: 'keep'},
-	    				pinned: 'left',
 	    				suppressMovable	: true
 						})
 					}
@@ -133,6 +134,7 @@ class GenGrille extends React.Component{
 
 
 	render () {
+		console.log("le param est :" +this.props.routeParams.origin)
 		return (
 				<div>
 				<input type="text" onChange={this.onQuickFilterText.bind(this)} placeholder="Type text to filter..."/>
@@ -144,6 +146,7 @@ class GenGrille extends React.Component{
 								columnDefs = {this.state.dataCol}
 								rowData = {this.state.dataRow}
 								rowSelection="multiple"
+								pageSize = {20}
 								enableColResize="true"
 								enableSorting="true"
 								enableFilter="true"
@@ -157,5 +160,3 @@ class GenGrille extends React.Component{
 	}
 
 }
-
-export default GenGrille;

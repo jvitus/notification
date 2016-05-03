@@ -1,31 +1,11 @@
-import React from 'react';
-import {render} from 'react-dom'; //importe un seul membre ici render du modul react-dom
-import update from 'react-addons-update';
-import axios from 'axios';
-import GenGrille from './grid/GenGrille.jsx';
-import Vignettes from './Vignettes.jsx';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import routes from './config/routes.jsx'
+import {Router, browserHistory} from 'react-router'
 
 
-import 'ag-grid-root/dist/styles/ag-grid.css';
-import 'ag-grid-root/dist/styles/theme-blue.css';
+import 'ag-grid-root/dist/styles/ag-grid.css'
+import 'ag-grid-root/dist/styles/theme-blue.css'
 
-
-class App extends React.Component {
-
-  constructor(props){
-    super(props)
-  }
-  render () {
-    return (
-
-      <div>
-        <Vignettes />
-
-        <GenGrille/>
-      </div>
-      );
-  }
-}
-
-
-render(<App/>, document.getElementById('root'));
+ReactDOM.render(<Router history={browserHistory} routes={routes} />,
+root)

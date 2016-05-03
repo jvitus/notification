@@ -36,17 +36,18 @@ def add_routes(config):
     ##### Security routes #####
     config.add_route('vignettes', 'alerting-core/vignettes')
     config.add_route('infos', 'alerting-core/infos')
+    config.add_route('infos/id', 'alerting-core/infos/{id}')
     config.add_route('details' , 'alerting-core/details/{id}')
     # config.add_route('security/logout', 'portal-core/security/logout')
     # config.add_route('security/has_access', 'portal-core/security/has_access')
 
     # ##### User #####
     # config.add_route('core/user', 'portal-core/users')
+    # config.add_route('core/user/id', 'portal-core/users/{id}')
     # config.add_route('core/user/adress', 'portal-core/users/adress')
     
-    # config.add_route('core/user/id', 'portal-core/users/{id}')
+    
     # config.add_route('core/user/id/adress', 'portal-core/users/{id}/adress')
-#SELECT ORIGIN FROM TLOG_MESSAGES group by ORIGIN;
     # config.add_route('core/adress/id', 'portal-core/adress/{id}')
 
     pass
