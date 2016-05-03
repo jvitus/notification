@@ -11,22 +11,21 @@ dans le cas de React :
     ReactDOM.render(<Router history={browserHistory} routes={routes} />, root);
 
 initialise le router avec deux props history et routes :
- * history il peut y en avoir 3 types :
-  * [browserHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#browserhistory) est celui recommandé d'aprés la doc officielle pour les applications sur navigateurs
-  * [hashHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#hashhistory)
-  * [createMemoryHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#creatememoryhistory)
+  history il peut y en avoir 3 types :
+   [browserHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#browserhistory) est celui recommandé d'aprés la doc officielle pour les applications sur navigateurs
+   [hashHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#hashhistory)
+   [createMemoryHistory] (https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#creatememoryhistory)
 
-* routes la configuration des routes 
-
+ routes la configuration des routes :
 
     const routes = {
-     path: '/',
-     component: App,
-     indexRoute: { component: Vignettes },
-     childRoutes: [
-       { path: 'infos/:origin', component: GenGrille },
-       { path: 'infos/:origin/:id' , component : Details },
-       { path: '\*' , component : NotFound }
-     ]
+    path: '/',
+    component: App,
+    indexRoute: { component: Vignettes },
+    childRoutes: [
+        { path: 'infos/:origin', component: GenGrille },
+        { path: 'infos/:origin/:id' , component : Details },
+        { path: '\*' , component : NotFound }
+        ]
     }
     module.exports = routes;
