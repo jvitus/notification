@@ -128,8 +128,9 @@ export default class GenGrille extends React.Component{
 		}
 
 	onGridReady(params) {
-		this.api = params.api;
-		this.columnApi = params.columnApi;
+		let myDataSource
+		this.api = params.api
+		this.columnApi = params.columnApi
 	}
 
 
