@@ -26,6 +26,7 @@ export default class GenGrille extends React.Component{
 			},
 			rowHeight: 30,
 			rowModelType: 'pagination',
+			//datasource : myDatasource,
 			onRowClicked: (row) => {
 						/*quand on clique sur une ligne
 						on veut attaquer l'API avec l'id de la ligne en question
@@ -63,10 +64,11 @@ export default class GenGrille extends React.Component{
 		window.addEventListener('resize', this.sizeToFit);
 		  	let dataResponse = []
 
-		axios.get('http://127.0.0.1:6544/alerting-core/infos?ORIGIN='+this.props.routeParams.origin+'&page=1&per_page=20' )
+		axios.get('http://127.0.0.1:6544/alerting-core/infos?ORIGIN='+this.props.routeParams.origin+'&page=2&per_page=5' )
 		.then( function (response) {
 				this.setState ( {dataRow : response.data  } )
 				console.log("avant transform")
+				console.log(response)
 				console.log(this.state.dataRow[0])
 				console.log(response.data[0])
 				this.setState({rowHeight : 30})
