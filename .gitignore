@@ -7,7 +7,6 @@ node_modules/
 **/*.egg-info/*
 **/*.egg
 **/*.rar
-Back/alerting_app/Views/__pycache__/
 
 npm-debug.log
 
