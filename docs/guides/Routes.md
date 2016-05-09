@@ -8,6 +8,7 @@ dans le cas de React :
     import routes from './config/routes.jsx'
     import {Router, browserHistory} from 'react-router'
 
+
     ReactDOM.render(<Router history={browserHistory} routes={routes} />,
     root);
 
