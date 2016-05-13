@@ -18,41 +18,10 @@ class Vignettes extends React.Component {
   }
 
   onDetailClick(index) {
-    console.log("boum on a clique sur "+index)
-    console.log("on va donc sur le domaine " +this.state.listeVignettes[index].ORIGIN)
-    // this.props.router.push("infos/"+this.state.listeVignettes[index].ORIGIN)
   }
 
   componentDidMount() {
     let dataResponse = []
-    // let dataFictive = [
-    //     {
-    //       "ORIGIN": "est",
-    //       "NB_ERREUR": 26
-    //     },
-    //     {
-    //       "ORIGIN": "fugiat",
-    //       "NB_ERREUR": 21
-    //     },
-    //     {
-    //       "ORIGIN": "proident",
-    //       "NB_ERREUR": 20
-    //     },
-    //     {
-    //       "ORIGIN": "ea",
-    //       "NB_ERREUR": 33
-    //     },
-    //     {
-    //       "ORIGIN": "sunt",
-    //       "NB_ERREUR": 32
-    //     },
-    //     {
-    //       "ORIGIN": "commodo",
-    //       "NB_ERREUR": 28
-    //     }
-    //   ]
-    //
-    // this.setState ({ listeVignettes : dataFictive})
 
     axios.get('http://127.0.0.1:6544/alerting-core/vignettes' )
       .then( function (response) {

@@ -11,7 +11,9 @@ def add_cors_headers_response_callback(event):
         'Access-Control-Allow-Methods': 'POST,GET,DELETE,PUT,OPTIONS',
         'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization',
         'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Expose-Headers' : 'true',
         'Access-Control-Max-Age': '1728000',
+        'Access-Control-Expose-Headers': 'Content-Max'
         })
     event.request.add_response_callback(cors_headers)
 
@@ -45,8 +47,8 @@ def add_routes(config):
     # config.add_route('core/user', 'portal-core/users')
     # config.add_route('core/user/id', 'portal-core/users/{id}')
     # config.add_route('core/user/adress', 'portal-core/users/adress')
-    
-    
+
+
     # config.add_route('core/user/id/adress', 'portal-core/users/{id}/adress')
     # config.add_route('core/adress/id', 'portal-core/adress/{id}')
 

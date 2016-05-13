@@ -27,6 +27,7 @@
     "react-addons-update": "^15.0.1",
     "react-bootstrap": "^0.29.2",
     "react-dom": "^15.0.1",
+    "react-fetch": "0.0.9",
     "react-router": "^2.3.0",
     "style-loader": "^0.13.1"
   },
