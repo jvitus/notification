@@ -55,7 +55,7 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   });
 module.exports = {
   entry: [
-    './app/index.js'
+    './app/index.jsx'
   ],
   output: {
     path: __dirname + '/dist',
@@ -64,7 +64,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.js?/,
         exclude: /node_modules/,
         loader: "babel-loader",
         query: {
@@ -101,7 +101,7 @@ A la fin du fichier spécifie le(s) plugin(s) à utiliser dans un tableau
 
 ``` js
 entry: [
-  './app/index.js'
+  './app/index.jsx'
 ]
 ```
 entry est un array de string qui prend le chemin des fichiers d'entrée de l'application
@@ -119,7 +119,7 @@ output: {
 module: {
   loaders: [
       {
-       test: /\.js$/,
+       test: /\.js?/,
        exclude: /node_modules/,
        loader: "babel-loader",
        query: {
@@ -324,7 +324,7 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
  });
 module.exports = {
  entry: [
-   './app/index.js'
+   './app/index.jsx'
  ],
  output: {
    path: __dirname + '/dist',
@@ -333,7 +333,7 @@ module.exports = {
  module: {
    loaders: [
      {
-       test: /\.js$/,
+       test: /\.js?/,
        exclude: /node_modules/,
        loader: "babel-loader"
        query: {
