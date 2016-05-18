@@ -19,7 +19,6 @@ export default class Details extends React.Component{
 
 
 	componentDidMount() {
-		console.log("id a recup" +this.props.routeParams.id);
 		let dataResponse = []
 		 axios.get('http://127.0.0.1:6544/alerting-core/infos/'+this.props.routeParams.id)
 		 	.then( function (response) {

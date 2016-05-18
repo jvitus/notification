@@ -13,21 +13,19 @@ def getSomeLogs(request):
 
 	positionPage = "1"
 
-	queryTotal = text('SELECT COUNT(*) as NB_ERREUR FROM TLOG_MESSAGES')
-	#recupere le nombre de row 
-	resultsTotal = DBSession.execute(queryTotal).fetchone()
+
 
 	# print("affichage des params mixed")
 	# print(request)
 	# print("fin de params mixed")
 	# if request.matchdict is None :
-	print("++++++++++++++++++++++++++++++++++++++++++++")
-	print( request.route_url)
-	print( request.params)
-	print("--------------------------------------------")
-	print( request.urlvars)
-	print ( request.urlargs )
-	print("////////////////////////////////////////////")
+	#print("++++++++++++++++++++++++++++++++++++++++++++")
+	#print( request.route_url)
+	#print( request.params)
+	#print("--------------------------------------------")
+	#print( request.urlvars)
+	#print ( request.urlargs )
+	#print("////////////////////////////////////////////")
 	if len( request.params ) > 0:
 		print("TRUCS SUPER BIEN A FAIRE")
 		if 'ORIGIN' in request.params.keys() :
@@ -43,10 +41,14 @@ def getSomeLogs(request):
 		else:
 			search =''
 
-		print('************************************************')
-		print(positionPage)
-		print(nbPerPage)
-		print('************************************************')
+
+		queryTotal = text('SELECT COUNT(*) as NB_ERREUR FROM TLOG_MESSAGES WHERE ORIGIN ='+origin+';')
+		#recupere le nombre de row
+		resultsTotal = DBSession.execute(queryTotal).fetchone()
+		#print('************************************************')
+		#print(positionPage)
+		#print(nbPerPage)
+		#print('************************************************')
 		# nbPerPage = 10
 		queryTmp = 'DECLARE @PageNumber AS INT, @RowspPage AS INT SET @PageNumber = '+str(positionPage)+' SET @RowspPage = '+str(nbPerPage)+' SELECT convert(varchar, ID ) ID,SCOPE,ORIGIN,FORMAT(JCRE, \'dd/MM/yyy HH:mm:ss\',\'en-US\') JCRE FROM TLOG_MESSAGES WHERE ORIGIN = '+origin+' '
 
@@ -69,18 +71,22 @@ def getSomeLogs(request):
 	 #.bindparams(bindparam('ori',origin))
 
 	results = DBSession.execute(query).fetchall()
-	print(type(results))
+	#print(type(results))
 	data = [dict(row) for row in results]
 
 
-	print("///////***********//////////////**********//////////")
-	response = Response( str(data ), status_int= 200 )
-	print( response )
-	print("///////***********//////////////**********//////////")
+	#print("///////***********//////////////**********//////////")
+	lMin = (int(positionPage)-1)*(int(nbPerPage))
+	lMax = lMin + len(results)
+	request.response.headers.update({'Access-Control-Expose-Headers' : 'true'})
+	request.response.headers.update({ 'Content-Range' : ''+str(lMin)+'-'+str(lMax)+'/'+str(resultsTotal['NB_ERREUR'])+''})
+	request.response.headers.update({ 'Content-Max' : ''+str(resultsTotal['NB_ERREUR'])+''})
+	#print( request.response )
+	#print("///////***********//////////////**********//////////")
 
 
 
-	
+
 	return data
 
 @view_config(route_name='infos/id',renderer='json',permission=NO_PERMISSION_REQUIRED )

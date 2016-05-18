@@ -14,7 +14,8 @@ export default class GenGrille extends React.Component{
 			dataRow : [],
 			dataCol :[],
 			quickFilterText: null,
-			rowHeight : 30
+			rowHeight : 30,
+			allOfTheData : []
 		}
 		 this.transformerCol = this.transformerCol.bind(this)
 		 this.sizeToFit = this.sizeToFit.bind(this)
@@ -22,30 +23,32 @@ export default class GenGrille extends React.Component{
 		this.gridOptions = {
 		// this is how you listen for events using gridOptions
 			onModelUpdated () {
-			  console.log('event onModelUpdated received');
 			},
+			pageSize : 10,
 			rowHeight: 30,
 			rowModelType: 'pagination',
-			//datasource : myDatasource,
+			rowBuffer: 10, // no need to set this, the default is fine for almost all scenarios
+			enableFilter : false,
 			onRowClicked: (row) => {
 						/*quand on clique sur une ligne
 						on veut attaquer l'API avec l'id de la ligne en question
 						pour afficher les details
 						*/
 				browserHistory.push("/infos/"+this.props.routeParams.origin+"/"+row.data.ID)
-			},
-			// this is a simple property
-			rowBuffer: 10, // no need to set this, the default is fine for almost all scenarios
-			enableFilter : false
+			}
 		}
 
 
 	}
 
 
+	componentDidMount() {
+		window.addEventListener('resize', this.sizeToFit)
+		this.createNewDatasource();
+
+	}
 
 	onQuickFilterText(event) {
-		console.log("filtre :"+event.target.value)
 		this.setState({quickFilterText: event.target.value});
 	}
 
@@ -54,39 +57,50 @@ export default class GenGrille extends React.Component{
 	}
 
 	onPageSizeChanged (pageSize) {
-		this.state.pageSize = new Number(pageSize);
-		console.log("page size blablabal")
-		createNewDatasource();
+
+	}
+
+	/** test pagination **/
+	setRowData(rowData) {
+		this.setState({ allOfTheData : rowData })
 	}
 
 
-	componentDidMount() {
-		window.addEventListener('resize', this.sizeToFit);
-		  	let dataResponse = []
-
-		axios.get('http://127.0.0.1:6544/alerting-core/infos?ORIGIN='+this.props.routeParams.origin+'&page=2&per_page=5' )
-		.then( function (response) {
-				this.setState ( {dataRow : response.data  } )
-				console.log("avant transform")
-				console.log(response)
-				console.log(this.state.dataRow[0])
-				console.log(response.data[0])
-				this.setState({rowHeight : 30})
-				this.transformerCol(this.state.dataRow[0])
-				this.sizeToFit()
-		}.bind(this))
-		.catch(function (response){
-				console.log(response)
-			})
-		console.log("ON rappel")
-
+	createNewDatasource(){
+		if(!this.state.allOfTheData){
+			console.log('passed');
+			return;
 		}
 
-	componentWillReceiveProps (nextProps) {
-  	console.log("on a actualisé la props youhouuuuu"+nextProps.origin)
+		var dataSource = {
+			rowCount : this.totalRows, 														//on ne connait pas le nombre de row a l'avance
+			pageSize : this.gridOptions.pageSize, 		// nombre de row par page
+			getRows: (params) =>{
+				//console.log(params);
+				axios.get('http://127.0.0.1:6544/alerting-core/infos?ORIGIN='+this.props.routeParams.origin+'&page='+parseInt(params.endRow/this.gridOptions.pageSize)+'&per_page='+this.gridOptions.pageSize)
+					.then( function (response) {
+							this.setRowData(response.data);
+							this.transformerCol(this.state.allOfTheData[0]);
+							this.sizeToFit();
 
-  	console.log("le super historique est " +this.props.routeParams.origin)
-  	console.log("LA SUPER ID  " +this.props.routeParams.id)
+							var rowsThisPage = response.data;
+							var lastRow = parseInt(response.headers['content-max']); //la on définit le nombre de row total pour l'affichage
+							params.successCallback(rowsThisPage, lastRow)
+					}.bind(this))
+					.catch(function (err){
+						params.failCallback()
+						console.error(err);
+					})
+			}
+		}
+
+		this.gridOptions.api.setDatasource(dataSource);
+
+	}
+
+	/** fin test pagination **/
+
+	componentWillReceiveProps (nextProps) {
 	}
 /*
   prend en entré un json
@@ -96,12 +110,9 @@ export default class GenGrille extends React.Component{
 
 		transformerCol(JsonObjet){
 				var colAutoGen = []
-				console.log(JsonObjet)
 				for(var champ in JsonObjet){
-					console.log("champ :" , champ)
 					if( champ === 'ID' || champ ==='id')
 					{
-						console.log("on va mettre le champ id")
 						colAutoGen.push({
 							headerName : champ,
 							field: champ,
@@ -130,14 +141,12 @@ export default class GenGrille extends React.Component{
 		}
 
 	onGridReady(params) {
-	//	let myDataSource
 		this.api = params.api
 		this.columnApi = params.columnApi
 	}
 
 
 	render () {
-		console.log("le param est :" +this.props.routeParams.origin)
 		return (
 				<div>
 				<input type="text" onChange={this.onQuickFilterText.bind(this)} placeholder="Type text to filter..."/>
@@ -147,7 +156,7 @@ export default class GenGrille extends React.Component{
 								quickFilterText={this.state.quickFilterText}
 								onGridReady={this.onGridReady.bind(this)}
 								columnDefs = {this.state.dataCol}
-								rowData = {this.state.dataRow}
+								rowData = {this.state.allOfTheData}
 								rowSelection="multiple"
 								pageSize = {20}
 								enableColResize="true"
