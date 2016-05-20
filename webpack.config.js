@@ -47,6 +47,10 @@ module.exports = {
                 test: /\.css$/,
                 loader: "style!css"
             },
+       {
+                test: /\.less$/,
+                loader: "style!css!less"
+       },
       {
         test : /\.jsx?/, //expression réguliere qui va prendre tout les fichiers avec une extension .js ou .jsx
         include : APP_DIR,

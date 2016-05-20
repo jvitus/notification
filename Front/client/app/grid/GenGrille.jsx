@@ -30,17 +30,23 @@ export default class GenGrille extends React.Component{
 			rowBuffer: 10, // no need to set this, the default is fine for almost all scenarios
 			enableFilter : false,
 			onRowClicked: (row) => {
-						/*quand on clique sur une ligne
-						on veut attaquer l'API avec l'id de la ligne en question
-						pour afficher les details
-						*/
-				browserHistory.push("/infos/"+this.props.routeParams.origin+"/"+row.data.ID)
+				let pathD = '/infos/'+this.props.routeParams.Fk_Alerte+"/"+row.data.Alerte_ID
+				 axios.get('http://127.0.0.1:6544/alerting-core/details/'+row.data.Alerte_ID )
+					.then( function (response) {
+							this.setState ( {dataRow : response.data  } )
+							this.transformerCol(this.state.dataRow[0])
+							this.sizeToFit()
+					}.bind(this))
+					.catch(function (response){
+							console.log(response)
+						})
+				console.log("on va vers"+pathD)
+				browserHistory.push("/infos/"+this.props.routeParams.Fk_Alerte+"/"+row.data.Alerte_ID)
 			}
 		}
 
 
 	}
-
 
 	componentDidMount() {
 		window.addEventListener('resize', this.sizeToFit)
@@ -49,6 +55,7 @@ export default class GenGrille extends React.Component{
 	}
 
 	onQuickFilterText(event) {
+		console.log("filtre :"+event.target.value)
 		this.setState({quickFilterText: event.target.value});
 	}
 
@@ -57,14 +64,12 @@ export default class GenGrille extends React.Component{
 	}
 
 	onPageSizeChanged (pageSize) {
-
 	}
 
 	/** test pagination **/
 	setRowData(rowData) {
 		this.setState({ allOfTheData : rowData })
 	}
-
 
 	createNewDatasource(){
 		if(!this.state.allOfTheData){
@@ -77,7 +82,7 @@ export default class GenGrille extends React.Component{
 			pageSize : this.gridOptions.pageSize, 		// nombre de row par page
 			getRows: (params) =>{
 				//console.log(params);
-				axios.get('http://127.0.0.1:6544/alerting-core/infos?ORIGIN='+this.props.routeParams.origin+'&page='+parseInt(params.endRow/this.gridOptions.pageSize)+'&per_page='+this.gridOptions.pageSize)
+				axios.get('http://127.0.0.1:6544/alerting-core/infos?Fk_Alerte='+this.props.routeParams.Fk_Alerte+'&page='+parseInt(params.endRow/this.gridOptions.pageSize)+'&per_page='+this.gridOptions.pageSize)
 					.then( function (response) {
 							this.setRowData(response.data);
 							this.transformerCol(this.state.allOfTheData[0]);
@@ -97,22 +102,17 @@ export default class GenGrille extends React.Component{
 		this.gridOptions.api.setDatasource(dataSource);
 
 	}
-
-	/** fin test pagination **/
-
 	componentWillReceiveProps (nextProps) {
 	}
-/*
-  prend en entré un json
-  se sert des cles ( { key : val } )
-  generer les headers du tableau de la forme ( { headerNale : key , filed : key , witdh : nb_pixel })
-  */
 
 		transformerCol(JsonObjet){
 				var colAutoGen = []
+				console.log(JsonObjet)
 				for(var champ in JsonObjet){
+					console.log("champ :" , champ)
 					if( champ === 'ID' || champ ==='id')
 					{
+						console.log("on va mettre le champ id")
 						colAutoGen.push({
 							headerName : champ,
 							field: champ,
@@ -141,12 +141,13 @@ export default class GenGrille extends React.Component{
 		}
 
 	onGridReady(params) {
-		this.api = params.api
-		this.columnApi = params.columnApi
+		this.api = params.api;
+		this.columnApi = params.columnApi;
 	}
 
 
 	render () {
+		console.log("le param est :" +this.props.routeParams.Fk_Alerte)
 		return (
 				<div>
 				<input type="text" onChange={this.onQuickFilterText.bind(this)} placeholder="Type text to filter..."/>

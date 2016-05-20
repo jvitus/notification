@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,date
 from decimal import Decimal
 from urllib.parse import quote_plus
 from sqlalchemy import engine_from_config
@@ -24,6 +24,10 @@ def datetime_adapter(obj, request):
         return obj.strftime ('%d/%m/%Y %H:%M:%S')
     except :
         return obj.strftime ('%d/%m/%Y')
+
+def date_adapter(obj, request):
+    """Json adapter for datetime objects."""
+    return obj.strftime ('%d/%m/%Y')
 
 def decimal_adapter(obj, request):
     """Json adapter for Decimal objects.
@@ -51,6 +55,7 @@ def main(global_config, **settings):
     # Add renderer for datetime objects
     json_renderer = JSON()
     json_renderer.add_adapter(datetime, datetime_adapter)
+    json_renderer.add_adapter(date, date_adapter)
     json_renderer.add_adapter(Decimal, decimal_adapter)
     json_renderer.add_adapter(bytes, bytes_adapter)
     config.add_renderer('json', json_renderer)

@@ -11,9 +11,10 @@ def getLogs(request):
 	print(request.params.mixed())
 
 	params = request.params.mixed()
-	logTable = Base.metadata.tables['TLOG_MESSAGES']
+	logTable = Base.metadata.tables['Ocurrence_Alerte']
+	logTableJointure = Base.metadata.tables['Alerte']
 
-	query = text('SELECT ORIGIN,COUNT(*) as NB_ERREUR FROM TLOG_MESSAGES GROUP BY ORIGIN')
+	query = text('SELECT Fk_TypeAlerte,COUNT(O.ID) as NB_ERREUR FROM Alerte A, Ocurrence_Alerte O WHERE O.Fk_Alerte=A.ID GROUP BY Fk_TypeAlerte')
 	# query = select([logTable.c['SCOPE'],logTable.c['ORIGIN']]
 	# 	).group_by(logTable.c['SCOPE'],logTable.c['ORIGIN'])
 

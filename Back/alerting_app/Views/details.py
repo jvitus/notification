@@ -12,20 +12,13 @@ def getLogs(request):
 	id_ = request.matchdict['id']
 
 	params = request.params.mixed()
-	logTable = Base.metadata.tables['TLOG_MESSAGES']
+	logTable = Base.metadata.tables['Ocurrence_Alerte']
 
-	query = text('SELECT * FROM TLOG_MESSAGES where ID = :val').bindparams(bindparam('val',id_))
-	# query = select([logTable.c['SCOPE'],logTable.c['ORIGIN']]
-	# 	).group_by(logTable.c['SCOPE'],logTable.c['ORIGIN'])
-
-	# query = select(logTable.c)
-
-	# for key in params:
-	# 	query = query.where(logTable.c[key] == params[key] )
-
+	query = text('SELECT * FROM Ocurrence_Alerte where ID = :val').bindparams(bindparam('val',id_))
 
 	results = DBSession.execute(query).fetchall()
 	print(type(results))
 
 	data = [dict(row) for row in results]
 	return data
+
