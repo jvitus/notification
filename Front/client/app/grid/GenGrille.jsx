@@ -25,6 +25,7 @@ export default class GenGrille extends React.Component{
 		// this is how you listen for events using gridOptions
 			onModelUpdated () {
 			},
+
 			pageSize : 10,
 			rowHeight: 30,
 			rowModelType: 'pagination',
@@ -46,6 +47,7 @@ export default class GenGrille extends React.Component{
 				browserHistory.push("/infos/"+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID)
 				}
 
+
 				// 			onCellClicked: (cell) => {
 				// let pathD = '/infos/'+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID
 				 // axios.get('http://127.0.0.1:6544/alerting-core/infos/'+row.data.Alerte_ID )
@@ -59,8 +61,11 @@ export default class GenGrille extends React.Component{
 					// 	})
 				// console.log("on va vers"+pathD)
 				// browserHistory.push("/infos/"+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID)
-				}
-		}
+				// }
+			}
+
+
+	}
 
 	componentDidMount() {
 		window.addEventListener('resize', this.sizeToFit)
@@ -114,10 +119,9 @@ export default class GenGrille extends React.Component{
 		this.gridOptions.api.setDatasource(dataSource);
 
 	}
+
 	componentWillReceiveProps (nextProps) {
 	}
-
-
 
 		transformerCol(JsonObjet){
 				var delete_button = 'delete'
