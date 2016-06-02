@@ -10,7 +10,8 @@ def getLogs(request):
 
 	print(request.params.mixed())
 	id_ = request.matchdict['id']
-
+	print("IDDDDDDDDD")
+	print(id_)
 	params = request.params.mixed()
 	logTable = Base.metadata.tables['Ocurrence_Alerte']
 

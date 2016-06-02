@@ -1,7 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,100,300,700);
 @import url(https://fonts.googleapis.com/css?family=Exo+2:400,100,500,700,300);
 
-body.detail{
+// https://www.ag-grid.com/angular-grid-styling/index.php
+
+div.ag-cell{
+	background-color: #00a300;
+	color: white;
+	text-align: center;
+	font-size: 16px;
+	padding: 4px 2px 4px 2px;
+}
+
+div.ag-header{
+	background-color: #009300;
+}
+
+div.detail{
 
 	padding-top: 50px;
 
@@ -55,10 +69,24 @@ body.detail{
 		}
 
 		span.icon {
-  	font-size: 4em;
+  	font-size: 5em;
   	display: block;
   	}
 
 	}
 	
+	button {
+    background-color: #4CAF50;
+    border: dashed solid green;
+    margin-bottom: 1px;
+    text-align: center;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+		width: 180px;
+}
+
+	button:hover {
+    background-color: #6CCF70;
+}
 }
