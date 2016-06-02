@@ -61,7 +61,6 @@ export default class GenGrille extends React.Component{
 				// browserHistory.push("/infos/"+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID)
 				}
 		}
-	}
 
 	componentDidMount() {
 		window.addEventListener('resize', this.sizeToFit)
