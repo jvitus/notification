@@ -34,7 +34,7 @@ export default class GenGrille extends React.Component{
 
 			onRowDoubleClicked: (row) => {
 				let pathD = '/infos/'+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID
-				 // axios.get('http://127.0.0.1:6544/alerting-core/infos/'+row.data.Alerte_ID )
+					// axios.get('http://127.0.0.1:6544/alerting-core/infos/'+row.data.Alerte_ID )
 					// .then( function (response) {
 					// 		this.setState ( {dataRow : response.data  } )
 					// 		this.transformerCol(this.state.dataRow[0])
