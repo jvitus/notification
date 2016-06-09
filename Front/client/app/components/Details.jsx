@@ -19,10 +19,55 @@ export default class Details extends React.Component{
 
 	constructor(props) {
 		super(props);
+    this.onDetailClick = this.onDetailClick.bind(this);
 		this.state = {
 			dataRow : []
 		}
 	}
+
+	onDetailClick(index) {
+
+		switch(index) {
+
+		case 0: 
+			axios.get('http://192.168.0.43:6544/alerting-core/delete/'+this.props.routeParams.id)
+					.then( function (response) {
+					alert("Alert was properly deleted");
+				//this.setState ( {dataRow : { Transitions_possibles : {test : 1} }  } )
+			})
+			.catch(function (response){
+					console.log(response);})
+		break;
+		case 1:
+			axios.get('http://192.168.0.43:6544/alerting-core/ignore/'+this.props.routeParams.id)
+					.then( function (response) {
+					alert("Alerted was ignored");
+				/*this.setState ( {Rep_call : response.data  } )*/
+			})
+			.catch(function (response){
+					console.log(response);})
+		break;
+		case 2:
+			axios.get('http://192.168.0.43:6544/alerting-core/treat/'+this.props.routeParams.id)
+				.then( function (response) {
+				alert("Alert was treated");
+				/*this.setState ( {Rep_call : response.data  } )*/
+			})
+			.catch(function (response){
+					console.log(response);})
+		break;
+		case 3:
+			axios.get('http://192.168.0.43:6544/alerting-core/putonhold/'+this.props.routeParams.id)
+				.then( function (response) {
+				alert("Alert was put on hold");
+				/*this.setState ( {Rep_call : response.data  } )*/
+			})
+			.catch(function (response){
+					console.log(response);})
+		break;
+
+  }
+}
 
 	componentDidMount() {
 
@@ -101,8 +146,9 @@ export default class Details extends React.Component{
 						</div>
 												{
             this.state.dataRow.Transitions_possibles.map(function(listval,i)
-            {
-            	return (<div className="col-lg-2"><Col className="button"><button key={i}><h3 > {listval.Nom} </h3> </button></Col></div>);
+            {	
+            	var clickIndex = this.onDetailClick.bind(this,i)
+            	return (<div className="col-lg-2"><Col className="button"><button onClick={clickIndex} key={i}><h3 > {listval.Nom} </h3> </button></Col></div>);
             }.bind(this) )
           }
 					</div>

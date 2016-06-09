@@ -50,18 +50,19 @@ export default class GenGrille extends React.Component{
 
 				// 			onCellClicked: (cell) => {
 				// let pathD = '/infos/'+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID
-				 // axios.get('http://127.0.0.1:6544/alerting-core/infos/'+row.data.Alerte_ID )
-					// .then( function (response) {
-					// 		this.setState ( {dataRow : response.data  } )
-					// 		this.transformerCol(this.state.dataRow[0])
-					// 		this.sizeToFit()
-					// }.bind(this))
-					// .catch(function (response){
-					// 		console.log(response)
-					// 	})
+				//  axios.get('http://127.0.0.1:6544/alerting-core/infos/'+row.data.Alerte_ID )
+				// 	.then( function (response) {
+				// 			this.setState ( {dataRow : response.data  } )
+				// 			this.transformerCol(this.state.dataRow[0])
+				// 			this.sizeToFit()
+				// 	}.bind(this))
+				// 	.catch(function (response){
+				// 			console.log(response)
+				// 		})
 				// console.log("on va vers"+pathD)
 				// browserHistory.push("/infos/"+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID)
 				// }
+
 			}
 
 

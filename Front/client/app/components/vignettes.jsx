@@ -19,6 +19,7 @@ class Vignettes extends React.Component {
   }
 
   onDetailClick(index) {
+    console.log("jai cliquer sur ");
   }
 
   componentDidMount() {

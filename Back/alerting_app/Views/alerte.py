@@ -1,18 +1,18 @@
-# from pyramid.security import NO_PERMISSION_REQUIRED
-# from pyramid.view import view_config
-# from ..Models import DBSession,Base
-# from pyramid.response import Response
-# from sqlalchemy import select,text,bindparam,and_,func,Float,exists
-# from sqlalchemy.sql.functions import GenericFunction
-# from datetime import datetime, timedelta
-# import json
+from pyramid.security import NO_PERMISSION_REQUIRED
+from pyramid.view import view_config
+from ..Models import DBSession,Base
+from pyramid.response import Response
+from sqlalchemy import select,text,bindparam,and_,func,Float,exists
+from sqlalchemy.sql.functions import GenericFunction
+from datetime import datetime, timedelta
+import json
 
 
-# # class var_(GenericFunction):
-# # 	type = Float
-# # 	name = 'VAR'
+# class var_(GenericFunction):
+# 	type = Float
+# 	name = 'VAR'
 
-# # print(select([func.var_()]))
+# print(select([func.var_()]))
 
 # @view_config(route_name='alerte',renderer='json',permission=NO_PERMISSION_REQUIRED )
 # def getAlertingLogs(request):
