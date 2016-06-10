@@ -1,6 +1,5 @@
 import React from "react"
 import Breadcrumb from 'react-bootstrap/lib/Breadcrumb'
-import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 
 export default class App extends React.Component{
 
@@ -25,9 +24,7 @@ export default class App extends React.Component{
 	render(){
 		return (
 			<div>
-
 				<Breadcrumb>
-					<Glyphicon glyph="bell" />
 					<Breadcrumb.Item href="/">
 						home
 					</Breadcrumb.Item>

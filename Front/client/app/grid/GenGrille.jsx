@@ -3,7 +3,8 @@ import {AgGridReact} from 'ag-grid-react';
 import axios from 'axios';
 import { browserHistory } from 'react-router'
 
-
+require("!style!css!less!../assets/grid.less");
+// https://www.ag-grid.com/angular-grid-styling/index.php
 
 export default class GenGrille extends React.Component{
 
@@ -24,31 +25,56 @@ export default class GenGrille extends React.Component{
 		// this is how you listen for events using gridOptions
 			onModelUpdated () {
 			},
+
 			pageSize : 10,
 			rowHeight: 30,
 			rowModelType: 'pagination',
 			rowBuffer: 10, // no need to set this, the default is fine for almost all scenarios
 			enableFilter : false,
-			onRowClicked: (row) => {
-						/*quand on clique sur une ligne
-						on veut attaquer l'API avec l'id de la ligne en question
-						pour afficher les details
-						*/
-				browserHistory.push("/infos/"+this.props.routeParams.origin+"/"+row.data.ID)
+
+			onRowDoubleClicked: (row) => {
+				let pathD = '/infos/'+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID
+					// axios.get('http://127.0.0.1:6544/alerting-core/infos/'+row.data.Alerte_ID )
+					// .then( function (response) {
+					// 		this.setState ( {dataRow : response.data  } )
+					// 		this.transformerCol(this.state.dataRow[0])
+					// 		this.sizeToFit()
+					// }.bind(this))
+					// .catch(function (response){
+					// 		console.log(response)
+					// 	})
+				console.log("on va vers"+pathD)
+				browserHistory.push("/infos/"+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID)
+				}
+
+
+				// 			onCellClicked: (cell) => {
+				// let pathD = '/infos/'+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID
+				//  axios.get('http://127.0.0.1:6544/alerting-core/infos/'+row.data.Alerte_ID )
+				// 	.then( function (response) {
+				// 			this.setState ( {dataRow : response.data  } )
+				// 			this.transformerCol(this.state.dataRow[0])
+				// 			this.sizeToFit()
+				// 	}.bind(this))
+				// 	.catch(function (response){
+				// 			console.log(response)
+				// 		})
+				// console.log("on va vers"+pathD)
+				// browserHistory.push("/infos/"+this.props.routeParams.Fk_Alerte+"/"+row.data.Ocurrence_ID)
+				// }
+
 			}
-		}
 
 
 	}
-
 
 	componentDidMount() {
 		window.addEventListener('resize', this.sizeToFit)
 		this.createNewDatasource();
-
 	}
 
 	onQuickFilterText(event) {
+		console.log("filtre :"+event.target.value)
 		this.setState({quickFilterText: event.target.value});
 	}
 
@@ -57,14 +83,11 @@ export default class GenGrille extends React.Component{
 	}
 
 	onPageSizeChanged (pageSize) {
-
 	}
 
-	/** test pagination **/
 	setRowData(rowData) {
 		this.setState({ allOfTheData : rowData })
 	}
-
 
 	createNewDatasource(){
 		if(!this.state.allOfTheData){
@@ -77,7 +100,7 @@ export default class GenGrille extends React.Component{
 			pageSize : this.gridOptions.pageSize, 		// nombre de row par page
 			getRows: (params) =>{
 				//console.log(params);
-				axios.get('http://127.0.0.1:6544/alerting-core/infos?ORIGIN='+this.props.routeParams.origin+'&page='+parseInt(params.endRow/this.gridOptions.pageSize)+'&per_page='+this.gridOptions.pageSize)
+				axios.get('http://192.168.0.43:6544/alerting-core/infos?Fk_Alerte='+this.props.routeParams.Fk_Alerte+'&page='+parseInt(params.endRow/this.gridOptions.pageSize)+'&per_page='+this.gridOptions.pageSize)
 					.then( function (response) {
 							this.setRowData(response.data);
 							this.transformerCol(this.state.allOfTheData[0]);
@@ -98,21 +121,26 @@ export default class GenGrille extends React.Component{
 
 	}
 
-	/** fin test pagination **/
-
 	componentWillReceiveProps (nextProps) {
 	}
-/*
-  prend en entré un json
-  se sert des cles ( { key : val } )
-  generer les headers du tableau de la forme ( { headerNale : key , filed : key , witdh : nb_pixel })
-  */
 
 		transformerCol(JsonObjet){
-				var colAutoGen = []
+				var delete_button = 'delete'
+							var colAutoGen = []
+				// colAutoGen.push({
+				// headerName : '#',
+				// width: 5,
+				// checkboxSelection: true,
+				// suppressSorting: true,
+    //     suppressMenu: true,
+    //     pinned: true,
+    // 		suppressRowClickSelection: true,
+    //   })
 				for(var champ in JsonObjet){
+					console.log("champ :" , champ)
 					if( champ === 'ID' || champ ==='id')
 					{
+						console.log("on va mettre le champ id")
 						colAutoGen.push({
 							headerName : champ,
 							field: champ,
@@ -141,16 +169,16 @@ export default class GenGrille extends React.Component{
 		}
 
 	onGridReady(params) {
-		this.api = params.api
-		this.columnApi = params.columnApi
+		this.api = params.api;
+		this.columnApi = params.columnApi;
 	}
 
-
 	render () {
+		console.log("le param est :" +this.props.routeParams.Fk_Alerte)
 		return (
 				<div>
 				<input type="text" onChange={this.onQuickFilterText.bind(this)} placeholder="Type text to filter..."/>
-						<div style={{height: 400}} className="ag-blue">
+						<div style={{height: 400}} className="ag-green">
 								<AgGridReact
 								gridOptions={this.gridOptions}
 								quickFilterText={this.state.quickFilterText}
@@ -158,14 +186,13 @@ export default class GenGrille extends React.Component{
 								columnDefs = {this.state.dataCol}
 								rowData = {this.state.allOfTheData}
 								rowSelection="multiple"
-								pageSize = {20}
+								pageSize = {10}
 								enableColResize="true"
 								enableSorting="true"
 								enableFilter="true"
 								groupHeaders="true"
 								rowHeight={this.state.rowHeight}
-								debug="true"
-								/>
+								debug="true"/>
 						</div>
 				</div>
 		);

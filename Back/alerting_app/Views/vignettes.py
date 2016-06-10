@@ -11,17 +11,10 @@ def getLogs(request):
 	print(request.params.mixed())
 
 	params = request.params.mixed()
-	logTable = Base.metadata.tables['TLOG_MESSAGES']
+	logTable = Base.metadata.tables['Ocurrence_Alerte']
+	logTableJointure = Base.metadata.tables['Alerte']
 
-	query = text('SELECT ORIGIN,COUNT(*) as NB_ERREUR FROM TLOG_MESSAGES GROUP BY ORIGIN')
-	# query = select([logTable.c['SCOPE'],logTable.c['ORIGIN']]
-	# 	).group_by(logTable.c['SCOPE'],logTable.c['ORIGIN'])
-
-	# query = select(logTable.c)
-
-	# for key in params:
-	# 	query = query.where(logTable.c[key] == params[key] )
-
+	query = text('SELECT Fk_TypeAlerte, Icone, NomType, COUNT(O.ID) as NB_ERREUR FROM Alerte A, Ocurrence_Alerte O, TypeAlerte T WHERE O.Fk_Alerte=A.ID and A.Fk_TypeAlerte = T.ID GROUP BY Fk_TypeAlerte, NomType, Icone')
 
 	results = DBSession.execute(query).fetchall()
 	print(type(results))

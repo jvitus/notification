@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot",
+    "start": "webpack-dev-server --inline --hot --host 192.168.0.43",
     "production": "webpack -p"
   },
   "repository": {
@@ -23,6 +23,7 @@
     "axios": "^0.9.1",
     "css-loader": "^0.23.1",
     "griddle-react": "^0.5.1",
+    "less": "^2.6.1",    
     "react": "^15.0.1",
     "react-addons-update": "^15.0.1",
     "react-bootstrap": "^0.29.2",
